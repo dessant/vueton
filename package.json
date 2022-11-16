@@ -1,0 +1,36 @@
+{
+  "name": "vueton",
+  "version": "0.1.0",
+  "author": "Armin Sebastian",
+  "description": "Vue components",
+  "license": "GPL-3.0-only",
+  "homepage": "https://github.com/dessant/vueton",
+  "repository": {
+    "url": "https://github.com/dessant/vueton.git",
+    "type": "git"
+  },
+  "type": "module",
+  "main": "index.js",
+  "files": [
+    "components",
+    "styles"
+  ],
+  "scripts": {
+    "update": "ncu --upgrade",
+    "release": "standard-version",
+    "push": "git push --follow-tags origin main"
+  },
+  "devDependencies": {
+    "npm-check-updates": "^16.4.1",
+    "prettier": "^2.7.1",
+    "standard-version": "^9.5.0"
+  },
+  "peerDependencies": {
+    "@fontsource/roboto": "^4.5.8",
+    "vue": "^3.2.45",
+    "vuetify": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

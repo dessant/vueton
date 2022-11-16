@@ -1,0 +1,8 @@
+@use 'vuetify/styles' with (
+  $utilities: false,
+  $color-pack: false,
+);
+
+@use "./themes";
+
+@forward "./mixins";

@@ -1,0 +1,28 @@
+@mixin theme-base() {
+  html {
+    overflow: initial !important;
+  }
+
+  body {
+    font-family: "Roboto", sans-serif;
+    font-size: 100%;
+    margin: 0;
+  }
+
+  .v-application {
+    background: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-background);
+  }
+}
+
+@mixin theme-prop($prop, $role, $flag: '') {
+  #{$prop}: var(--md-sys-color-#{$role}) #{$flag};
+}
+
+@mixin typography($role, $flag: '') {
+  font-family: var(--md-sys-typescale-#{$role}-font-family-name) #{$flag};
+  font-weight: var(--md-sys-typescale-#{$role}-font-weight) #{$flag};
+  font-size: var(--md-sys-typescale-#{$role}-font-size) #{$flag};
+  letter-spacing: var(--md-sys-typescale-#{$role}-letter-spacing) #{$flag};
+  line-height: var(--md-sys-typescale-#{$role}-line-height) #{$flag};
+}

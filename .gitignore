@@ -1,0 +1,7 @@
+/.assets/
+
+node_modules/
+
+/.vscode
+
+/npm-debug.log
