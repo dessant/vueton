@@ -4,7 +4,7 @@
       {{ notice }}
     </div>
 
-    <div class="title">Help us make some avocado toast!</div>
+    <div class="title">Let's make some avocado toast!</div>
 
     <div class="desc">
       <div class="desc-text">

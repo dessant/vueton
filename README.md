@@ -1,6 +1,6 @@
 # Vueton
 
-Vue components, not for general use.
+Vue components, not intended for general use.
 
 ## License
 
