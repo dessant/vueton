@@ -30,6 +30,9 @@ html {
       @include vueton.typography(body-medium);
       @include vueton.theme-prop(color, on-background);
       opacity: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     & .v-switch__track {

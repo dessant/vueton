@@ -21,14 +21,14 @@
     "push": "git push --follow-tags origin main"
   },
   "devDependencies": {
-    "npm-check-updates": "^16.4.3",
-    "prettier": "^2.8.0",
+    "npm-check-updates": "^16.5.6",
+    "prettier": "^2.8.1",
     "standard-version": "^9.5.0"
   },
   "peerDependencies": {
     "@fontsource/roboto": "^4.5.8",
     "vue": "^3.2.45",
-    "vuetify": "^3.0.3"
+    "vuetify": "^3.0.5"
   },
   "engines": {
     "node": ">=18.0.0"
