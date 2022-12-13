@@ -288,28 +288,11 @@ export default {
 
     @include vueton.theme-prop(background-color, cta-surface);
 
-    & .v-btn__overlay {
-      @include vueton.theme-prop(background-color, inverse-on-surface);
-    }
-
-    & .v-ripple__container {
-      @include vueton.theme-prop(color, inverse-on-surface);
-
-      & .v-ripple__animation--visible {
-        opacity: 0.16 !important;
-      }
-    }
-
     & img {
       width: auto;
       height: 20px;
       pointer-events: none;
-      z-index: 1;
     }
-  }
-
-  & .v-btn:hover .v-btn__overlay {
-    opacity: 0.12;
   }
 }
 
@@ -329,18 +312,6 @@ export default {
 
   & .progress-details {
     color: var(--md-ref-palette-neutral70);
-  }
-
-  & .cta-buttons {
-    & .v-btn {
-      & .v-btn__overlay {
-        @include vueton.theme-prop(background-color, on-surface);
-      }
-
-      & .v-ripple__container {
-        @include vueton.theme-prop(color, on-surface);
-      }
-    }
   }
 }
 

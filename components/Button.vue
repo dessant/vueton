@@ -44,6 +44,56 @@ html {
     & .v-btn__content {
       text-transform: initial;
       @include vueton.typography(label-large);
+      z-index: 1;
+    }
+
+    &.v-btn--variant-elevated {
+      & .v-btn__overlay {
+        @include vueton.theme-prop(background-color, inverse-on-surface);
+      }
+
+      & .v-ripple__container {
+        @include vueton.theme-prop(color, inverse-on-surface);
+
+        & .v-ripple__animation--visible {
+          opacity: 0.16 !important;
+        }
+      }
+    }
+
+    &.v-btn--variant-elevated:hover .v-btn__overlay {
+      opacity: 0.12;
+    }
+
+    &.v-btn--disabled {
+      color: rgba(var(--v-theme-on-surface), 0.12);
+      opacity: 1 !important;
+
+      &.v-btn--variant-elevated {
+        background-color: rgba(var(--v-theme-on-surface), 0.12);
+      }
+
+      & .v-btn__overlay {
+        background-color: transparent !important;
+      }
+
+      & .v-btn__content {
+        color: rgba(var(--v-theme-on-surface), 0.38);
+      }
+    }
+  }
+
+  & .v-theme--dark {
+    & .vn-button {
+      &.v-btn--variant-elevated {
+        & .v-btn__overlay {
+          @include vueton.theme-prop(background-color, on-surface);
+        }
+
+        & .v-ripple__container {
+          @include vueton.theme-prop(color, on-surface);
+        }
+      }
     }
   }
 }
