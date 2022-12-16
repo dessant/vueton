@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/dessant/vueton/compare/v0.1.3...v0.1.4) (2022-12-16)
+
+
+### Bug Fixes
+
+* set color scheme ([29aaa33](https://github.com/dessant/vueton/commit/29aaa3314e9bf02f19526fb8048263d9e90adb2c))
+
 ### [0.1.3](https://github.com/dessant/vueton/compare/v0.1.2...v0.1.3) (2022-12-13)
 
 
