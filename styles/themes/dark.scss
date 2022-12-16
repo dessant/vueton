@@ -1,5 +1,4 @@
 :root {
-  /* dark */
   --md-sys-color-primary-dark: var(--md-ref-palette-primary80);
   --md-sys-color-on-primary-dark: var(--md-ref-palette-primary20);
   --md-sys-color-primary-container-dark: var(--md-ref-palette-primary30);
@@ -40,6 +39,8 @@
 }
 
 .v-theme--dark {
+  color-scheme: dark !important;
+
   --md-sys-color-primary: var(--md-sys-color-primary-dark);
   --md-sys-color-on-primary: var(--md-sys-color-on-primary-dark);
   --md-sys-color-primary-container: var(--md-sys-color-primary-container-dark);

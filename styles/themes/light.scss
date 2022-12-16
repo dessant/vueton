@@ -1,5 +1,4 @@
 :root {
-  /* light */
   --md-sys-color-primary-light: var(--md-ref-palette-primary40);
   --md-sys-color-on-primary-light: var(--md-ref-palette-primary100);
   --md-sys-color-primary-container-light: var(--md-ref-palette-primary90);
@@ -42,6 +41,8 @@
 }
 
 .v-theme--light {
+  color-scheme: light !important;
+
   --md-sys-color-primary: var(--md-sys-color-primary-light);
   --md-sys-color-on-primary: var(--md-sys-color-on-primary-light);
   --md-sys-color-primary-container: var(--md-sys-color-primary-container-light);
