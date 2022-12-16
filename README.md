@@ -1,5 +1,7 @@
 # Vueton
 
+[![Version](https://img.shields.io/npm/v/vueton.svg?colorB=007EC6)](https://www.npmjs.com/package/vueton)
+
 Vue components, not intended for general use.
 
 ## License
