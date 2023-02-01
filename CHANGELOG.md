@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/dessant/vueton/compare/v0.1.4...v0.2.0) (2023-02-01)
+
+
+### Features
+
+* add new components ([1c41a42](https://github.com/dessant/vueton/commit/1c41a42c16b6b56e22240461b286b0da9a34252f))
+
 ### [0.1.4](https://github.com/dessant/vueton/compare/v0.1.3...v0.1.4) (2022-12-16)
 
 
