@@ -1,5 +1,5 @@
 <template>
-  <i class="vn-icon"></i>
+  <i class="vn-icon" aria-hidden="true"></i>
 </template>
 
 <script>
@@ -13,11 +13,17 @@ export default {
     }
   },
 
-  mounted: function () {
-    const url = `url("${this.src}")`;
+  methods: {
+    setup: function () {
+      const url = `url("${this.src}")`;
 
-    this.$el.style.maskImage = url;
-    this.$el.style.webkitMaskImage = url;
+      this.$el.style.maskImage = url;
+      this.$el.style.webkitMaskImage = url;
+    }
+  },
+
+  mounted: function () {
+    this.setup();
   }
 };
 </script>
@@ -27,7 +33,7 @@ export default {
 
 html {
   & .vn-icon {
-    @include vueton.theme-prop(background-color, on-surface);
+    @include vueton.theme-prop(background-color, on-surface-variant);
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: contain;

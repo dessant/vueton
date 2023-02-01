@@ -26,3 +26,31 @@
   letter-spacing: var(--md-sys-typescale-#{$role}-letter-spacing) #{$flag};
   line-height: var(--md-sys-typescale-#{$role}-line-height) #{$flag};
 }
+
+@mixin transitions() {
+  .scale-transition {
+
+    &-enter-active,
+    &-leave-active {
+      transform-origin: center top !important;
+      transition: opacity 0.08s linear, transform 0.12s cubic-bezier(0, 0, 0.2, 1) !important;
+    }
+
+    &-enter-active,
+    &-enter-to {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    &-enter-from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    &-leave-from,
+    &-leave-to {
+      opacity: 0;
+      transform: scale(0);
+    }
+  }
+}

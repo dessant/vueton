@@ -4,7 +4,7 @@
       {{ notice }}
     </div>
 
-    <div class="title">Let's make some avocado toast!</div>
+    <div class="title">Help us make some avocado toast!</div>
 
     <div class="desc">
       <div class="desc-text">
@@ -30,19 +30,16 @@
       <div class="goals-wrap" v-if="goals">
         <div class="cta">Support our current goals</div>
         <div class="goals">
-          <div class="goal" v-for="goal in goals.items" :key="goal.id">
-            <vn-icon
-              class="goal-bullet"
-              src="/src/contribute/assets/circle.svg"
-            ></vn-icon>
+          <div class="goal" v-for="goal of goals.items">
+            <vn-icon class="goal-bullet" :src="`./assets/circle.svg`"></vn-icon>
             {{ goal }}
           </div>
         </div>
-        <vn-progress
+        <vn-linear-progress
           class="progress"
           :model-value="goals.progress.value / goals.progress.goal"
         >
-        </vn-progress>
+        </vn-linear-progress>
         <div class="progress-details">
           <div>
             Raised
@@ -117,6 +114,19 @@ export default {
   },
 
   methods: {
+    setup: async function () {
+      const rsp = await fetch(
+        `https://api.armin.dev/v1/contribute/goals/${this.extSlug}`
+      );
+      const goals = await rsp.json();
+
+      const exchangeRate = goals.progress.currency.exchangeRate;
+      goals.progress.value = Math.trunc(goals.progress.value / exchangeRate);
+      goals.progress.goal = Math.trunc(goals.progress.goal / exchangeRate);
+
+      this.goals = goals;
+    },
+
     contribute: function (service) {
       const url = `https://armin.dev/go/${service}?pr=${this.extSlug}&src=app`;
 
@@ -124,17 +134,8 @@ export default {
     }
   },
 
-  mounted: async function () {
-    const rsp = await fetch(
-      `https://api.armin.dev/v1/contribute/goals/${this.extSlug}`
-    );
-    const goals = await rsp.json();
-
-    const exchangeRate = goals.progress.currency.exchangeRate;
-    goals.progress.value = Math.trunc(goals.progress.value / exchangeRate);
-    goals.progress.goal = Math.trunc(goals.progress.goal / exchangeRate);
-
-    this.goals = goals;
+  mounted: function () {
+    this.setup();
   }
 };
 </script>

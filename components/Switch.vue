@@ -1,5 +1,9 @@
 <template>
-  <v-switch class="vn-switch" inset></v-switch>
+  <v-switch ref="self" v-bind="$attrs" class="vn-switch" inset>
+    <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
+      <slot :name="slot" v-bind="scope || {}"></slot>
+    </template>
+  </v-switch>
 </template>
 
 <script>
@@ -64,8 +68,8 @@ html {
       }
 
       & .v-switch__thumb {
-        width: 15px;
-        height: 15px;
+        width: 14px;
+        height: 14px;
         @include vueton.theme-prop(color, on-primary, !important);
       }
 
@@ -73,6 +77,14 @@ html {
         & .v-selection-control__input {
           transform: translateX(8px);
         }
+      }
+    }
+  }
+
+  &.safari {
+    & .vn-switch {
+      & .v-label {
+        padding-left: 18px !important;
       }
     }
   }

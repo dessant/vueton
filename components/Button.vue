@@ -1,5 +1,15 @@
 <template>
-  <v-btn class="vn-button" variant="outlined" rounded><slot></slot></v-btn>
+  <v-btn
+    ref="self"
+    v-bind="$attrs"
+    class="vn-button"
+    variant="outlined"
+    rounded
+  >
+    <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
+      <slot :name="slot" v-bind="scope || {}"></slot>
+    </template>
+  </v-btn>
 </template>
 
 <script>
