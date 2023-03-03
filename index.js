@@ -1,6 +1,11 @@
 import App from './components/App';
 import Button from './components/Button';
+import Card from './components/Card';
+import CardActions from './components/CardActions';
+import CardText from './components/CardText';
+import CardTitle from './components/CardTitle';
 import Checkbox from './components/Checkbox';
+import Dialog from './components/Dialog';
 import Divider from './components/Divider';
 import Icon from './components/Icon';
 import IconButton from './components/IconButton';
@@ -16,7 +21,12 @@ import TextField from './components/TextField';
 export {
   App,
   Button,
+  Card,
+  CardActions,
+  CardText,
+  CardTitle,
   Checkbox,
+  Dialog,
   Divider,
   Icon,
   IconButton,

@@ -29,7 +29,6 @@
 
 @mixin transitions() {
   .scale-transition {
-
     &-enter-active,
     &-leave-active {
       transform-origin: center top !important;
@@ -51,6 +50,13 @@
     &-leave-to {
       opacity: 0;
       transform: scale(0);
+    }
+  }
+
+  .fade-transition {
+    &-enter-active,
+    &-leave-active {
+      transition: 0.12s linear !important;
     }
   }
 }
