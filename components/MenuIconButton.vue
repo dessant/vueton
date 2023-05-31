@@ -16,6 +16,7 @@
 
 <script>
 import {IconButton} from '../';
+import {addRecentPointerEventListener} from '../utils/app';
 
 export default {
   name: 'vn-menu-icon-button',
@@ -55,6 +56,13 @@ export default {
 
       this.$el.addEventListener('focusout', this.hideMenuOnFocusOut);
       this.menu.contentEl.addEventListener('focusout', this.hideMenuOnFocusOut);
+
+      addRecentPointerEventListener();
+
+      window.addEventListener('pointerdown', this.hideMenuOnOutsideClick, {
+        capture: true,
+        passive: true
+      });
     },
 
     showMenu: function () {
@@ -65,7 +73,7 @@ export default {
       this.menu.$emit('update:modelValue', false);
     },
 
-    focusMenuItem: function (location, {openMenu = true} = {}) {
+    focusMenuItem: function (location, {openMenu = false} = {}) {
       if (openMenu && !this.isMenuOpen) {
         this.showMenu();
       } else {
@@ -73,14 +81,36 @@ export default {
       }
     },
 
-    hideMenuOnFocusOut: function (ev) {
+    hideMenuOnFocusOut: async function (ev) {
+      await this.$nextTick();
+
       if (
         this.isMenuOpen &&
         document.hasFocus() &&
+        !window.recentPointerEvent &&
+        // menu button is not receiving focus
         this.$el !== ev.relatedTarget &&
-        !this.menu.contentEl.contains(ev.relatedTarget)
+        // menu content is not receiving focus
+        !this.menu.contentEl.contains(ev.relatedTarget) &&
+        // menu button is not currently focused
+        document.activeElement !== this.$el &&
+        // menu content is not currently focused
+        !this.menu.contentEl.contains(document.activeElement)
       ) {
         this.hideMenu();
+      }
+    },
+
+    hideMenuOnOutsideClick: function (ev) {
+      if (this.isMenuOpen) {
+        const eventPath = ev.composedPath();
+
+        if (
+          !eventPath.includes(this.$el) &&
+          !eventPath.includes(this.menu.contentEl)
+        ) {
+          this.hideMenu();
+        }
       }
     }
   },

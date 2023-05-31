@@ -15,6 +15,7 @@ import ListItem from './components/ListItem';
 import Menu from './components/Menu';
 import MenuIconButton from './components/MenuIconButton';
 import Select from './components/Select';
+import Snackbar from './components/Snackbar';
 import Switch from './components/Switch';
 import TextField from './components/TextField';
 
@@ -36,6 +37,7 @@ export {
   Menu,
   MenuIconButton,
   Select,
+  Snackbar,
   Switch,
   TextField
 };

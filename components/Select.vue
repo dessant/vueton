@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import {addRecentPointerEventListener} from '../utils/app';
+
 export default {
   name: 'vn-select',
 
@@ -34,18 +36,7 @@ export default {
       }
 
       if (this.density === 'compact') {
-        if (!window.recentPointerEventListener) {
-          window.recentPointerEventListener = true;
-
-          window.addEventListener(
-            'pointerdown',
-            ev => {
-              window.recentPointerEvent = true;
-              window.setTimeout(() => delete window.recentPointerEvent, 500);
-            },
-            {capture: true, passive: true}
-          );
-        }
+        addRecentPointerEventListener();
 
         window.setTimeout(() => {
           const inputControl = this.$el.querySelector('.v-input__control');

@@ -13,6 +13,12 @@
     background: var(--md-sys-color-background);
     color: var(--md-sys-color-on-background);
   }
+
+  .v-ripple__container {
+    & .v-ripple__animation--in {
+      opacity: 0.08 !important;
+    }
+  }
 }
 
 @mixin theme-prop($prop, $role, $flag: '') {
@@ -25,6 +31,14 @@
   font-size: var(--md-sys-typescale-#{$role}-font-size) #{$flag};
   letter-spacing: var(--md-sys-typescale-#{$role}-letter-spacing) #{$flag};
   line-height: var(--md-sys-typescale-#{$role}-line-height) #{$flag};
+}
+
+@mixin md2-typography($role, $flag: '') {
+  font-family: var(--mdc-typography-#{$role}-font-family-name) #{$flag};
+  font-weight: var(--mdc-typography-#{$role}-font-weight) #{$flag};
+  font-size: var(--mdc-typography-#{$role}-font-size) #{$flag};
+  letter-spacing: var(--mdc-typography-#{$role}-letter-spacing) #{$flag};
+  line-height: var(--mdc-typography-#{$role}-line-height) #{$flag};
 }
 
 @mixin transitions() {

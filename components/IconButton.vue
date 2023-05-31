@@ -77,6 +77,8 @@ html {
   & .vn-icon-button {
     width: 40px;
     height: 40px;
+    min-width: 40px;
+    min-height: 40px;
     border-radius: 20px;
 
     display: flex;
@@ -91,6 +93,8 @@ html {
       position: absolute;
       width: 40px;
       height: 40px;
+      min-width: 40px;
+      min-height: 40px;
       border-radius: 20px;
       opacity: 0;
       transition: opacity 15ms linear;

@@ -1,5 +1,5 @@
 <template>
-  <v-list-item ref="self" v-bind="$attrs" class="vn-list-item">
+  <v-list-item ref="self" v-bind="$attrs" class="vn-list-item" tabindex="0">
     <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
       <slot :name="slot" v-bind="scope || {}"></slot>
     </template>

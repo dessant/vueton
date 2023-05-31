@@ -5,6 +5,7 @@
     class="vn-button"
     variant="outlined"
     rounded
+    ripple
   >
     <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
       <slot :name="slot" v-bind="scope || {}"></slot>
@@ -64,15 +65,13 @@ html {
 
       & .v-ripple__container {
         @include vueton.theme-prop(color, inverse-on-surface);
-
-        & .v-ripple__animation--visible {
-          opacity: 0.16 !important;
-        }
       }
     }
 
-    &.v-btn--variant-elevated:hover .v-btn__overlay {
-      opacity: 0.12;
+    &.v-btn--variant-elevated:hover {
+      & .v-btn__overlay {
+        opacity: 0.12;
+      }
     }
 
     &.v-btn--disabled {

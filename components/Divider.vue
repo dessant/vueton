@@ -27,7 +27,8 @@ html {
     }
   }
 
-  & .vn-menu {
+  & .vn-menu,
+  & .vn-dialog {
     & .vn-divider {
       @include vueton.theme-prop(border-color, outline-variant, !important);
     }
