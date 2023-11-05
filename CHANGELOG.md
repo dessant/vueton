@@ -1,6 +1,13 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [0.4.1](https://github.com/dessant/vueton/compare/v0.4.0...v0.4.1) (2023-11-05)
+
+
+### Bug Fixes
+
+* update dependencies ([185f438](https://github.com/dessant/vueton/commit/185f438a20ba5ea1b71002b21e916eb485616b43))
 
 ## [0.4.0](https://github.com/dessant/vueton/compare/v0.3.0...v0.4.0) (2023-05-31)
 
