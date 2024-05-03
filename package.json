@@ -22,16 +22,16 @@
     "push": "git push --follow-tags origin main"
   },
   "devDependencies": {
-    "commit-and-tag-version": "^12.0.0",
-    "npm-check-updates": "^16.14.6",
-    "prettier": "^3.0.3"
+    "commit-and-tag-version": "^12.4.1",
+    "npm-check-updates": "^16.14.20",
+    "prettier": "^3.2.5"
   },
   "peerDependencies": {
-    "@fontsource/roboto": "^5.0.8",
-    "vue": "^3.3.7",
+    "@fontsource/roboto": "^5.0.13",
+    "vue": "3.4.23",
     "vuetify": "3.3.0"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   }
 }

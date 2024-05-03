@@ -19,11 +19,14 @@
           things afloat.
         </p>
       </div>
-      <img
-        class="desc-image"
-        :src="`./assets/illustration.png`"
-        alt="avocado and toast"
-      />
+      <picture class="image-container">
+        <source :srcset="`./assets/illustration.webp`" type="image/webp" />
+        <img
+          class="desc-image"
+          :src="`https://${apiHost}/static/images/illustration.png`"
+          alt="avocado and toast"
+        />
+      </picture>
     </div>
 
     <transition name="goals">
@@ -63,16 +66,22 @@
 
     <div class="cta-buttons">
       <vn-button @click="contribute('patreon')" variant="elevated">
-        <img class="patreon-image" :src="`./assets/patreon.png`" />
+        <picture class="image-container">
+          <source :srcset="`./assets/patreon.webp`" type="image/webp" />
+          <img :src="`https://${apiHost}/static/images/patreon.png`" />
+        </picture>
       </vn-button>
       <vn-button @click="contribute('paypal')" variant="elevated">
-        <img class="paypal-image" :src="`./assets/paypal.png`" />
+        <picture class="image-container">
+          <source :srcset="`./assets/paypal.webp`" type="image/webp" />
+          <img :src="`https://${apiHost}/static/images/paypal.png`" />
+        </picture>
       </vn-button>
     </div>
 
     <div class="cta-coin">
-      <vn-button @click="contribute('bitcoin')" variant="tonal">
-        Bitcoin
+      <vn-button @click="contribute('coinbase')" variant="tonal">
+        Coinbase
       </vn-button>
     </div>
   </div>
@@ -109,14 +118,15 @@ export default {
 
   data: function () {
     return {
-      goals: null
+      goals: null,
+      apiHost: 'contribute.vapps.dev'
     };
   },
 
   methods: {
     setup: async function () {
       const rsp = await fetch(
-        `https://api.armin.dev/v1/contribute/goals/${this.extSlug}`
+        `https://${this.apiHost}/api/v1/goals/${this.extSlug}`
       );
       const goals = await rsp.json();
 
@@ -128,7 +138,7 @@ export default {
     },
 
     contribute: function (service) {
-      const url = `https://armin.dev/go/${service}?pr=${this.extSlug}&src=app`;
+      const url = `https://${this.apiHost}/go/${service}?pr=${this.extSlug}&src=app`;
 
       this.$emit('open', {url});
     }
@@ -193,6 +203,10 @@ export default {
   & .ext-name {
     font-weight: 500;
   }
+}
+
+.image-container {
+  display: flex;
 }
 
 .desc-image {
@@ -265,7 +279,10 @@ export default {
 .goals-leave-active {
   max-height: 300px;
   margin-top: 24px;
-  transition: max-height 0.4s ease, margin-top 0.4s ease, opacity 0.3s ease;
+  transition:
+    max-height 0.4s ease,
+    margin-top 0.4s ease,
+    opacity 0.3s ease;
 }
 
 .goals-enter-from,
