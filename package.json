@@ -17,21 +17,21 @@
     "utils"
   ],
   "scripts": {
-    "update": "ncu --upgrade",
+    "update": "ncu --dep prod,dev,peer --filterVersion '^*' --upgrade",
     "release": "commit-and-tag-version",
     "push": "git push --follow-tags origin main"
   },
   "devDependencies": {
-    "commit-and-tag-version": "^12.4.1",
-    "npm-check-updates": "^16.14.20",
-    "prettier": "^3.2.5"
+    "commit-and-tag-version": "^12.5.0",
+    "npm-check-updates": "^17.1.11",
+    "prettier": "^3.4.2"
   },
   "peerDependencies": {
-    "@fontsource/roboto": "^5.0.13",
+    "@fontsource/roboto": "^5.1.0",
     "vue": "3.4.23",
     "vuetify": "3.3.0"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   }
 }
