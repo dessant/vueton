@@ -1,5 +1,5 @@
 <template>
-  <div class="vn-contribute">
+  <div class="vn-contribute" :class="appClasses">
     <div class="notice" v-if="notice">
       {{ notice }}
     </div>
@@ -40,16 +40,16 @@
         </div>
         <vn-linear-progress
           class="progress"
-          :model-value="goals.progress.value / goals.progress.goal"
+          :model-value="goals.funding.value / goals.funding.goal"
         >
         </vn-linear-progress>
         <div class="progress-details">
           <div>
             Raised
-            <span class="progress-value">{{ goals.progress.value }}</span>
+            <span class="progress-value">{{ goals.funding.value }}</span>
             <img class="progress-token" :src="`./assets/avocado.svg`" />
             of
-            <span class="progress-value">{{ goals.progress.goal }}</span>
+            <span class="progress-value">{{ goals.funding.goal }}</span>
             <img class="progress-token" :src="`./assets/avocado.svg`" />
             goal
           </div>
@@ -57,21 +57,24 @@
             1
             <img class="progress-token" :src="`./assets/avocado.svg`" />
             =
-            {{ goals.progress.currency.symbol
-            }}{{ goals.progress.currency.exchangeRate }}
+            {{ goals.funding.currency.symbol
+            }}{{ goals.funding.currency.exchangeRate }}
           </div>
         </div>
       </div>
     </transition>
 
     <div class="cta-buttons">
-      <vn-button @click="contribute('patreon')" variant="elevated">
+      <vn-button @click="showPage('patreon')" variant="elevated">
         <picture class="image-container">
           <source :srcset="`./assets/patreon.webp`" type="image/webp" />
           <img :src="`https://${apiHost}/static/images/patreon.png`" />
         </picture>
       </vn-button>
-      <vn-button @click="contribute('paypal')" variant="elevated">
+      <vn-button class="cta-coin" @click="showPage('crypto')" variant="tonal">
+        <img :src="`./assets/bitcoin.svg`" />
+      </vn-button>
+      <vn-button @click="showPage('paypal')" variant="elevated">
         <picture class="image-container">
           <source :srcset="`./assets/paypal.webp`" type="image/webp" />
           <img :src="`https://${apiHost}/static/images/paypal.png`" />
@@ -79,11 +82,22 @@
       </vn-button>
     </div>
 
-    <div class="cta-coin">
-      <vn-button @click="contribute('coinbase')" variant="tonal">
-        Coinbase
-      </vn-button>
-    </div>
+    <transition name="sponsors">
+      <div class="sponsors-wrap" v-if="sponsors">
+        <div class="sponsors-title">Sponsors</div>
+        <div class="sponsors">
+          <div class="sponsor-logo" v-for="sponsor in sponsors">
+            <a
+              :href="sponsor.url"
+              @click.prevent="showSponsor(sponsor.url)"
+              @keyup.enter.prevent="showSponsor(sponsor.url)"
+            >
+              <img :src="getSponsorLogo(sponsor.logo, {variant: theme})" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -111,6 +125,10 @@ export default {
     notice: {
       type: String,
       default: ''
+    },
+    theme: {
+      type: String,
+      default: ''
     }
   },
 
@@ -119,28 +137,56 @@ export default {
   data: function () {
     return {
       goals: null,
-      apiHost: 'contribute.vapps.dev'
+      sponsors: null,
+      apiHost: 'sponsors.vapps.dev',
+      goHost: 'go.vapps.dev'
     };
+  },
+
+  computed: {
+    appClasses: function () {
+      return {
+        'header-notice': this.notice
+      };
+    }
   },
 
   methods: {
     setup: async function () {
+      const action = new URL(window.location.href).searchParams.get('action');
       const rsp = await fetch(
-        `https://${this.apiHost}/api/v1/goals/${this.extSlug}`
+        `https://${this.apiHost}/api/v1/status/${this.extSlug}?action=${action}`
       );
-      const goals = await rsp.json();
+      const data = await rsp.json();
 
-      const exchangeRate = goals.progress.currency.exchangeRate;
-      goals.progress.value = Math.trunc(goals.progress.value / exchangeRate);
-      goals.progress.goal = Math.trunc(goals.progress.goal / exchangeRate);
+      const exchangeRate = data.funding.currency.exchangeRate;
+      data.funding.value = Math.trunc(data.funding.value / exchangeRate);
+      data.funding.goal = Math.trunc(data.funding.goal / exchangeRate);
 
-      this.goals = goals;
+      this.goals = {items: data.goals, funding: data.funding};
+
+      if (data.sponsors.length) {
+        this.sponsors = data.sponsors;
+      }
     },
 
-    contribute: function (service) {
-      const url = `https://${this.apiHost}/go/${service}?pr=${this.extSlug}&src=app`;
+    showPage: function (service) {
+      const url = `https://${this.goHost}/${service}?pr=${this.extSlug}&src=app`;
 
       this.$emit('open', {url});
+    },
+
+    showSponsor: function (url) {
+      this.$emit('open', {url});
+    },
+
+    getSponsorLogo: function (logo, {variant} = {}) {
+      let logoUrl = logo[variant];
+      if (!logoUrl) {
+        logoUrl = logo.light;
+      }
+
+      return logoUrl;
     }
   },
 
@@ -219,7 +265,8 @@ export default {
   width: 90vw;
 }
 
-.cta {
+.cta,
+.sponsors-title {
   @include vueton.typography(title-large);
   text-align: center;
   font-size: 20px;
@@ -292,12 +339,33 @@ export default {
   opacity: 0;
 }
 
+.sponsors-enter-active,
+.sponsors-leave-active {
+  max-height: 300px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  transition:
+    max-height 0.4s ease,
+    margin-top 0.4s ease,
+    margin-bottom 0.4s ease,
+    opacity 0.3s ease;
+}
+
+.sponsors-enter-from,
+.sponsors-leave-to {
+  max-height: 0;
+  margin-top: 0;
+  opacity: 0;
+}
+
 .cta-buttons {
   display: grid;
   grid-row-gap: 24px;
+  justify-items: center;
   margin-top: 48px;
+  margin-bottom: 24px;
 
-  & .v-btn {
+  & .v-btn:not(.cta-coin) {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -312,14 +380,49 @@ export default {
       pointer-events: none;
     }
   }
+
+  & .cta-coin {
+    width: 48px !important;
+    height: 48px !important;
+    min-width: auto !important;
+    order: 1;
+
+    @include vueton.theme-prop(color, cta-coin);
+
+    & img {
+      width: 26px;
+      height: 26px;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+  }
 }
 
-.cta-coin {
-  margin-top: 32px;
+.sponsors-wrap {
+  margin-top: 24px;
   margin-bottom: 24px;
+}
 
-  & .v-btn {
-    @include vueton.theme-prop(color, cta-coin);
+.sponsors {
+  display: flex;
+  row-gap: 24px;
+  column-gap: 48px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 24px;
+
+  & .sponsor-logo,
+  & .sponsor-logo a,
+  & .sponsor-logo img {
+    height: 42px;
+  }
+
+  & .sponsor-logo a {
+    display: inline-block;
+  }
+
+  & .sponsor-logo img {
+    cursor: pointer;
   }
 }
 
@@ -331,15 +434,13 @@ export default {
   & .progress-details {
     color: var(--md-ref-palette-neutral70);
   }
+
+  & .cta-coin img {
+    opacity: 0.8;
+  }
 }
 
 @media (min-width: 480px) {
-  .cta-buttons {
-    grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 56px;
-    margin-top: 56px;
-  }
-
   .desc-image {
     max-width: 250px;
   }
@@ -358,9 +459,24 @@ export default {
     width: 70vw;
   }
 
-  .cta {
+  .cta,
+  .sponsors-title {
     font-size: 22px;
     font-weight: 400;
+  }
+
+  .cta-buttons {
+    grid-template-columns: repeat(3, min-content);
+    column-gap: 24px;
+    margin-top: 56px;
+
+    & .cta-coin {
+      order: initial;
+    }
+  }
+
+  .sponsors-wrap {
+    max-width: 520px;
   }
 }
 
@@ -370,10 +486,18 @@ export default {
     margin-top: 48px;
   }
 
+  .header-notice .title {
+    margin-top: 32px;
+  }
+
   .desc {
     grid-template-columns: repeat(2, auto);
     grid-column-gap: 56px;
     margin-top: 72px;
+  }
+
+  .header-notice .desc {
+    margin-top: 42px;
   }
 
   .desc-text {
@@ -392,7 +516,12 @@ export default {
     width: 100%;
   }
 
-  .cta {
+  .header-notice .goals-wrap {
+    margin-top: 42px;
+  }
+
+  .cta,
+  .sponsors-title {
     @include vueton.typography(headline-small);
   }
 
@@ -400,10 +529,11 @@ export default {
     font-size: 16px;
     letter-spacing: 0.15px;
     line-height: 28px;
+    margin-top: 48px;
   }
 
-  .goals {
-    margin-top: 48px;
+  .header-notice .goals {
+    margin-top: 42px;
   }
 
   .progress-details {
@@ -419,6 +549,21 @@ export default {
   .goals-enter-active,
   .goals-leave-active {
     margin-top: 48px;
+  }
+
+  .header-notice {
+    & .goals-enter-active,
+    & .goals-leave-active {
+      margin-top: 42px;
+    }
+  }
+
+  .sponsors-wrap {
+    max-width: 100%;
+  }
+
+  .sponsors {
+    margin-top: 36px;
   }
 }
 </style>
