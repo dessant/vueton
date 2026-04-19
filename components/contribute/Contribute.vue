@@ -355,6 +355,7 @@ export default {
 .sponsors-leave-to {
   max-height: 0;
   margin-top: 0;
+  margin-bottom: 0;
   opacity: 0;
 }
 
