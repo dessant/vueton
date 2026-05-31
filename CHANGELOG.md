@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.5](https://github.com/dessant/vueton/compare/v0.4.4...v0.4.5) (2026-05-31)
+
+
+### Bug Fixes
+
+* update dependencies ([9484862](https://github.com/dessant/vueton/commit/9484862307699da82b4ac37e39c42d3c429fc8ba))
+
 ## [0.4.4](https://github.com/dessant/vueton/compare/v0.4.3...v0.4.4) (2026-04-19)
 
 
